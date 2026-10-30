@@ -1,0 +1,31 @@
+body { cursor: none; }
+.tv-title { position: fixed; left: 3.1vw; top: 3.6vh; z-index: 2; }
+.tv-title .kicker { font-size: 1.6vw; color: var(--soft); }
+.tv-title .big { font-size: 4.4vw; line-height: 1.05; }
+.tv-title mark { background: linear-gradient(transparent 55%, var(--y) 55%); color: inherit; }
+.tv-stage { position: fixed; left: 2.6vw; bottom: 0; width: 67vw; height: 80vh; }
+.tv-stage .stairs-svg { position: absolute; inset: 0; }
+.tv-stage .char { filter: drop-shadow(0 .3vw 0 rgba(0,0,0,.14)); transition: opacity .4s; }
+.tv-stage .more { position: absolute; z-index: 3; transform: translate(-50%, 0); font-family: Jua; font-size: 1vw; background: #fff; border: .15vw solid var(--ink); border-radius: 99px; padding: 0 .5vw; }
+.tv-stage .bubble { font-size: 1.1vw; }
+.tv-side { position: fixed; right: 2.9vw; top: 5.5vh; width: 24.5vw; display: flex; flex-direction: column; gap: 2.2vh; }
+.panel-box { background: var(--paper); border: .2vw solid var(--ink); border-radius: 1.6vw; box-shadow: .45vw .45vw 0 var(--ink); padding: 1.2vw 1.4vw; }
+.today { font-size: 1.3vw; } .today span { font-size: 2.6vw; }
+.soft { font-size: 1vw; color: var(--soft); }
+.wall-title { font-size: 1.55vw; margin-bottom: .8vw; }
+.wrow { display: flex; justify-content: space-between; font-family: Jua; font-size: 1.12vw; margin: .55vw 0 .2vw; }
+.wrow.first { font-size: 1.35vw; }
+.bar { height: .85vw; border: .14vw solid var(--ink); border-radius: 99px; background: #fff; overflow: hidden; }
+.bar i { display: block; height: 100%; transition: width .8s; }
+.join { display: flex; align-items: center; gap: 1vw; font-size: 1.5vw; line-height: 1.3; }
+.join svg { width: 6.6vw; height: 6.6vw; display: block; }
+
+.arrive { position: fixed; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; background: rgba(255,246,223,.75); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.arrive.show { opacity: 1; }
+.arrive-box { background: var(--paper); border: .25vw solid var(--ink); border-radius: 2vw; box-shadow: .6vw .6vw 0 var(--ink); padding: 2vw 3vw; display: flex; align-items: center; gap: 2vw; }
+.arrive-char { height: 14vw; }
+.arrive.show .arrive-char { animation: popin .7s cubic-bezier(.3,1.6,.5,1); }
+@keyframes popin { from { transform: scale(.2) rotate(-20deg); } to { transform: none; } }
+.arrive-txt { font-size: 2.6vw; line-height: 1.3; }
+.arrive-txt small { display: block; font-size: 1.7vw; color: var(--soft); }
+.sound-gate { position: fixed; inset: auto 0 0 0; text-align: center; padding: 10px; background: var(--ink); color: #fff; font-size: 18px; cursor: pointer; z-index: 20; }

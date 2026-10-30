@@ -1,0 +1,10 @@
+{
+  "name": "AI 계단 오르기",
+  "short_name": "AI 계단",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#FFF6DF",
+  "theme_color": "#FFF6DF",
+  "icons": [{ "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }]
+}

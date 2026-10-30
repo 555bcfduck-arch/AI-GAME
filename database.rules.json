@@ -1,0 +1,24 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "results": {
+      ".read": true,
+      ".indexOn": ["t"],
+      "$id": {
+        ".write": "!data.exists()",
+        ".validate": "newData.hasChildren(['h','steps','wall','char','color','t']) && newData.child('h').isNumber() && newData.child('h').val() >= 0 && newData.child('h').val() <= 10 && newData.child('steps').val().matches(/^[o1-5]{10}$/) && newData.child('wall').val().matches(/^(worry|doubt|how|heart|habit|none)$/) && newData.child('char').val().matches(/^[a-z]{2,12}$/) && newData.child('color').val().matches(/^[a-z]{3,10}$/) && newData.child('t').val() == now"
+      }
+    },
+    "stats": {
+      ".read": true,
+      "$q": {
+        ".validate": "$q.matches(/^q[0-9]$/)",
+        "$s": {
+          ".write": true,
+          ".validate": "$s.matches(/^s[o1-5]$/) && newData.isNumber() && newData.val() == (data.exists() ? data.val() + 1 : 1)"
+        }
+      }
+    }
+  }
+}

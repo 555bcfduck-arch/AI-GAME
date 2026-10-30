@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>나의 AI 계단 카드</title>
+<link rel="stylesheet" href="fonts/jua.css">
+<link rel="stylesheet" href="fonts/gowun-dodum.css">
+<style>
+  :root { --bg: #FFF6DF; --ink: #1F1F1F; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Gowun Dodum", sans-serif; }
+  main { max-width: 480px; margin: 0 auto; padding: 16px; text-align: center; }
+  img#out { width: 100%; border-radius: 18px; box-shadow: 0 6px 0 var(--ink); border: 3px solid var(--ink); background: #fff; min-height: 200px; }
+  p { font-size: 16px; color: #6E6555; }
+  .hook { display: block; width: 100%; margin-top: 22px; font-family: "Jua", sans-serif; font-size: 22px; padding: 14px; border-radius: 18px; border: 3px solid var(--ink);
+    background: linear-gradient(135deg, #FFB3C7, #C9B5F7 55%, #9AD6FF); box-shadow: 0 5px 0 var(--ink); color: var(--ink); }
+  .hook small { display: block; font-family: "Gowun Dodum", sans-serif; font-size: 14px; margin-top: 2px; }
+  .rec { margin-top: 26px; background: #FFFDF6; border: 3px solid var(--ink); border-radius: 18px; box-shadow: 0 5px 0 var(--ink); padding: 16px; text-align: left; }
+  .rec h2 { font-family: "Jua", sans-serif; font-weight: 400; font-size: 22px; margin: 0 0 10px; }
+  .rec .c { border-top: 2px dashed #d8ccb0; padding: 10px 0; }
+  .rec .c b { font-family: "Jua", sans-serif; font-weight: 400; font-size: 19px; display: block; }
+  .rec .c small { display: block; font-family: "Jua", sans-serif; font-size: 14px; color: #6E6555; margin-bottom: 2px; }
+  .rec .c span.t { display: inline-block; font-family: "Jua", sans-serif; font-size: 12px; color: var(--ink); border: 2px solid var(--ink); border-radius: 99px; padding: 0 8px; margin: 3px 0; }
+  .rec .foot { margin-top: 14px; padding-top: 10px; border-top: 2px dashed #d8ccb0; text-align: center; }
+  .rec .foot img { height: 28px; margin: 0 8px; }
+  .rec .c span { font-size: 15px; color: #6E6555; display: block; margin-top: 2px; word-break: keep-all; }
+  .rec .allt { font-family: "Jua", sans-serif; font-weight: 400; font-size: 18px; margin: 14px 0 6px; padding-top: 12px; border-top: 3px solid var(--ink); text-align: center; }
+  .rec .g h4 { font-family: "Jua", sans-serif; font-weight: 400; font-size: 15px; margin: 10px 0 4px; }
+  .rec .c .it { display: flex; align-items: center; gap: 10px; margin-top: 8px; background: #fff; border: 2px solid var(--ink); border-radius: 14px; padding: 7px 12px; }
+  .rec .c .it .ic { font-size: 26px; line-height: 1; }
+  .rec .c .it b.n { font-size: 17px; margin: 0; }
+  .rec .c .it span { margin: 0; font-size: 13.5px; }
+  .rec .g .pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .rec .g .pill { font-size: 13.5px; padding: 2px 9px; border-radius: 99px; background: #fff; border: 1.5px solid #D9C79C; }
+  .rec .g .pill.on { background: #FFD43B; border: 2px solid var(--ink); font-weight: 700; }
+  .rec .btn { display: block; text-align: center; margin-top: 8px; }
+  .rec p { font-size: 14px; margin: 10px 0 0; }
+  .rec details { border-top: 2px dashed #d8ccb0; padding: 10px 0 4px; font-size: 15px; }
+  .rec summary { font-family: "Jua", sans-serif; font-size: 17px; cursor: pointer; }
+  .rec ul { list-style: none; padding: 0; margin: 8px 0 0; } .rec li { margin: 8px 0; padding: 8px 10px; border-radius: 10px; background: #fff; line-height: 1.5; word-break: keep-all; }
+  .rec li.hit { background: #FFE88A; }
+  .rec li b { font-family: "Jua", sans-serif; font-weight: 400; }
+  a.btn { display: inline-block; margin-top: 6px; font-family: "Jua", sans-serif; font-size: 20px; padding: 12px 30px; border-radius: 99px;
+    border: 3px solid var(--ink); background: #FFD43B; color: var(--ink); text-decoration: none; box-shadow: 0 5px 0 var(--ink); }
+</style>
+</head>
+<body>
+<main>
+  <img id="out" alt="나의 AI 계단 카드">
+  <p>사진을 길게 눌러 저장하거나 아래 버튼을 눌러요</p>
+  <a class="btn" id="dl" download="my-ai-stairs.png">카드 저장하기</a>
+  <button class="hook" id="hook">🎁 나에게 맞는 다음 계단은?<small>부천시민미디어센터가 추천해요</small></button>
+  <section class="rec" id="recbox" hidden>
+    <h2>🎁 당신께 추천합니다</h2>
+    <div id="rec"></div>
+    <h3 class="allt">부천시민미디어센터에서는 이런 걸 해요</h3>
+    <div id="all"></div>
+    <a class="btn" id="go" target="_blank" rel="noopener">부천시민미디어센터 홈페이지</a>
+    <div class="foot"><img src="assets/logo/bcmc.png" alt="부천시민미디어센터"><img src="assets/logo/bcf.png" alt="부천문화재단"><p id="how"></p></div>
+  </section>
+</main>
+<script type="module">
+import { WALLS, levelOf, mainWall, NO_WALL_TIP, CHARACTERS, COLORS, CENTER, KINDS, recBoxes, catalogOf } from "./js/data.js";
+import { charSrc, charName } from "./js/chars.js";
+import { geometry, stairsSVG } from "./js/stairs.js";
+
+const p = new URLSearchParams(location.hash.slice(1));
+const ch = (CHARACTERS.find(c => c.id === p.get("c")) || CHARACTERS[0]).id;
+const col = (COLORS.find(c => c.id === p.get("k")) || COLORS[0]).id;
+const s = /^[o1-5]{10}$/.test(p.get("s") || "") ? p.get("s") : "oooooooooo";
+const quiz = p.get("q") || "";
+const h = [...s].filter(c => c === "o").length, L = levelOf(h), mw = mainWall(s), best = s.lastIndexOf("o");
+
+const loadImg = src => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = src; });
+function wrap(g, text, cx, y0, maxW, lh) {
+  let line = "", yy = y0;
+  for (const w of text.split(" ")) {
+    const t = line ? line + " " + w : w;
+    if (g.measureText(t).width > maxW && line) { g.fillText(line, cx, yy); line = w; yy += lh; } else line = t;
+  }
+  g.fillText(line, cx, yy); return yy;
+}
+function rr(g, x, y, w, h, r) { g.beginPath(); g.roundRect(x, y, w, h, r); }
+
+(async () => {
+  const W = 1080, H = 1400, wall = mw ? WALLS[mw.key] : null;
+  const text = `부천시민미디어센터www.bcmc.or.kr032-320-6408미디어페스티벌 · AI 계단 오르기${charName(ch)}와 함께 오른 나는${L.name}10계단 중 에 불을 켰어요나를 막는 벽${wall ? wall.name + wall.tip : NO_WALL_TIP}벽 넘기 한 가지 깜짝 퀴즈 개 정답0123456789막힌 벽이 하나도 없어요`;
+  try { await Promise.all([document.fonts.load("80px Jua", text), document.fonts.load("40px 'Gowun Dodum'", text)]); } catch {}
+  const c = document.createElement("canvas"); c.width = W; c.height = H;
+  const g = c.getContext("2d");
+  g.fillStyle = "#FFF6DF"; g.fillRect(0, 0, W, H);
+  g.fillStyle = "#EADFC2"; for (let y = 11; y < H; y += 26) for (let x = 11; x < W; x += 26) { g.beginPath(); g.arc(x, y, 2, 0, 7); g.fill(); }
+  g.textAlign = "center"; g.fillStyle = "#1F1F1F";
+  g.font = "38px Jua"; g.fillText("나의 AI 계단 오르기", W / 2, 76);
+
+  // 계단 + 내 캐릭터
+  const G = geometry(860, 470, { topRoom: 150, base: 0.06 });
+  const state = [...s].map(v => v === "o" ? "ok" : v);
+  const svg = stairsSVG(G, state, "mini");
+  const sImg = await loadImg("data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg));
+  const ox = 110, oy = 110;
+  g.drawImage(sImg, ox, oy, 860, 470);
+  const me = await loadImg(charSrc(ch, col)), mh = 140, mw2 = mh * me.width / me.height;
+  const pt = best < 0 ? G.floor : G.pos[best];
+  g.drawImage(me, ox + pt.x - mw2 / 2, oy + pt.y - mh + mh * 0.08, mw2, mh);
+
+  g.font = "38px 'Gowun Dodum'"; g.fillStyle = "#6E6555"; g.fillText(`${charName(ch)}와 함께 오른 나는`, W / 2, 660);
+  g.fillStyle = "#1F1F1F"; g.font = "100px Jua"; g.fillText(`${L.emoji} ${L.name}`, W / 2, 770);
+  g.font = "44px Jua"; g.fillText(`10계단 중 ${h}계단에 불을 켰어요 ✨`, W / 2, 845);
+
+  // 벽
+  const chip = wall ? `나를 막는 벽  ${wall.emoji} ${wall.name}` : "🏆 막힌 벽이 하나도 없어요";
+  g.font = "42px Jua"; const cwid = g.measureText(chip).width + 80;
+  rr(g, W / 2 - cwid / 2 + 6, 888, cwid, 76, 38); g.fillStyle = "#1F1F1F"; g.fill();
+  rr(g, W / 2 - cwid / 2, 882, cwid, 76, 38); g.fillStyle = wall ? wall.color : "#FFD43B"; g.fill(); g.lineWidth = 5; g.stroke();
+  g.fillStyle = "#1F1F1F"; g.fillText(chip, W / 2, 935);
+
+  rr(g, 90, 995, 900, 210, 30); g.fillStyle = "#fff"; g.fill(); g.lineWidth = 5; g.setLineDash([16, 12]); g.stroke(); g.setLineDash([]);
+  g.fillStyle = "#1F1F1F"; g.font = "38px Jua"; g.fillText(wall ? "💡 벽 넘기 한 가지" : "💡 다음 도전", W / 2, 1056);
+  g.font = "36px 'Gowun Dodum'"; wrap(g, wall ? wall.tip : NO_WALL_TIP, W / 2, 1112, 800, 52);
+
+  g.font = "30px 'Gowun Dodum'"; g.fillStyle = "#6E6555";
+  if (quiz) { const [r, t] = quiz.split("/"); g.fillText(`깜짝 퀴즈 ${t}개 중 ${r}개 정답`, W / 2, 1268); }
+  // 센터·재단 로고
+  try {
+    const [l1, l2] = await Promise.all([loadImg("assets/logo/bcmc.png"), loadImg("assets/logo/bcf.png")]);
+    const lh = 50, w1 = l1.width * lh / l1.height, w2 = l2.width * lh / l2.height, gap = 40, tw = w1 + gap + w2;
+    rr(g, W / 2 - tw / 2 - 26, 1296, tw + 52, 66, 33); g.fillStyle = "#fff"; g.fill();
+    g.drawImage(l1, W / 2 - tw / 2, 1304, w1, lh); g.drawImage(l2, W / 2 - tw / 2 + w1 + gap, 1304, w2, lh);
+  } catch {}
+
+  const row = (icon, name, tag) => `<div class="it"><span class="ic">${icon}</span><div><b class="n">${name}</b>${tag ? `<span>${tag}</span>` : ""}</div></div>`;
+  document.getElementById("rec").innerHTML = recBoxes(h).map(b => `<div class="c"><small>${KINDS[b.kind]}</small><b>${b.title}</b>${b.say ? row(b.icon, b.say, "") : ""}${b.items.map(it => row(it.icon, it.short, it.tag)).join("")}</div>`).join("");
+  document.getElementById("all").innerHTML = catalogOf(h).map(c => `<div class="g"><h4>${KINDS[c.kind]}</h4><div class="pills">${c.groups.map(g =>
+    g.items.length ? g.items.map(i => `<span class="pill${i.on ? " on" : ""}">${i.on ? "★ " : ""}${i.label}</span>`).join("")
+      : `<span class="pill${g.on ? " on" : ""}">${g.on ? "★ " : ""}${g.biz}</span>`).join("")}</div></div>`).join("");
+  document.getElementById("go").href = CENTER.url;
+  document.getElementById("hook").onclick = () => { document.getElementById("hook").style.display = "none"; const r = document.getElementById("recbox"); r.hidden = false; r.scrollIntoView({ behavior: "smooth" }); };
+  document.getElementById("how").innerHTML = `신청: ${CENTER.how}<br>문의: <a href="tel:${CENTER.tel}">${CENTER.tel}</a> · ${CENTER.place}<br>교육은 만 65세 이상, 청소년 등 수강료 50% 할인`;
+  const url = c.toDataURL("image/png");
+  document.getElementById("out").src = url; document.getElementById("dl").href = url;
+})();
+</script>
+</body>
+</html>
