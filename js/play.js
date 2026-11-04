@@ -1,5 +1,5 @@
-import { recBoxes, catalogOf, KINDS, STEPS, WALLS, WALL_BY_CODE, SURPRISE, SURPRISE_AFTER, AI_SPOT_TIPS, levelOf, mainWall, NO_WALL_TIP,
 import "./awake.js";
+import { recBoxes, catalogOf, KINDS, STEPS, WALLS, WALL_BY_CODE, SURPRISE, SURPRISE_AFTER, AI_SPOT_TIPS, levelOf, mainWall, NO_WALL_TIP,
   CHARACTERS, COLORS, IDLE_ASK, IDLE_ASK_RESULT, IDLE_COUNT } from "./data.js";
 import { charEl, charSrc, charName } from "./chars.js";
 import { drawStairs, standAt } from "./stairs.js";
