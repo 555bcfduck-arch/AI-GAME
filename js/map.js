@@ -1,4 +1,5 @@
 // TV 화면: 오늘 시민들이 오른 높이에 캐릭터가 서 있는 큰 계단 + 가장 많이 막은 벽 순위
+import "./awake.js";
 import { WALLS, WALL_BY_CODE, levelOf } from "./data.js";
 import { charEl, charName, charSrc } from "./chars.js";
 import { drawStairs, standAt } from "./stairs.js";
