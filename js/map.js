@@ -1,4 +1,4 @@
-// TV 화면: 오늘 시민들이 오른 높이에 캐릭터가 서 있는 큰 계단 + 가장 많이 막은 벽 순위
+// TV 화면: 축제 기간 시민들이 오른 높이에 캐릭터가 서 있는 큰 계단 + 가장 많이 막은 벽 순위
 import "./awake.js";
 import { WALLS, WALL_BY_CODE, levelOf } from "./data.js";
 import { charEl, charName, charSrc } from "./chars.js";
@@ -16,7 +16,8 @@ $("qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 1, scalable: true });
 
 // TV는 소리 없이 화면만 보여 줘요 (행사장 소음, 오리 결정 10/22)
 
-// 오늘 기록만 (자정이 지나면 새로 고침)
+// 축제 첫날(11/5) 0시부터 쌓인 기록 모두 (자정에 한 번 새로 고침)
+const FROM = new Date(2026, 10, 5).getTime();
 const today = new Date(); today.setHours(0, 0, 0, 0);
 setInterval(() => { if (new Date().getDate() !== today.getDate()) location.reload(); }, 60000);
 const rows = [];
@@ -108,7 +109,7 @@ const seen = new Set();
 store.onResult((r, old) => {
   const key = `${r && r.t}|${r && r.char}|${r && r.steps}`;
   if (seen.has(key)) return; seen.add(key);
-  if (!r || !r.char || typeof r.h !== "number" || (r.t && r.t < today.getTime())) return;
+  if (!r || !r.char || typeof r.h !== "number" || (r.t && r.t < FROM)) return;
   if (old) { rows.push(r); clearTimeout(settle); settle = setTimeout(() => { renderStairs(); renderSide(); }, 80); return; }
   if (busy) { if (queue.length >= 4) { rows.push(r); renderStairs(); renderSide(); } else queue.push(r); }
   else arrive(r);

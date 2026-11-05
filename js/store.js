@@ -34,7 +34,7 @@ export async function addResult(r) {
   chan && chan.postMessage({ kind: "result", row });
 }
 
-export async function onResult(cb, last = 1500) {
+export async function onResult(cb, last = 5000) {
   if (online) {
     await ensure();
     // 화면을 열기 전에 쌓인 기록은 조용히 배치(old=true), 그 뒤 들어오는 것만 도착 연출
@@ -49,7 +49,7 @@ export async function onResult(cb, last = 1500) {
   });
 }
 
-// 칸별 답 통계: "오늘 시민 63%도 해봤어요". key 는 "o"(해봤어요) 또는 벽 코드 "1"~"5"
+// 칸별 답 통계: "시민 63%도 해봤어요". key 는 "o"(해봤어요) 또는 벽 코드 "1"~"5"
 export async function recordAnswer(step, key) {
   const q = `q${step}`, k = `s${key}`;
   if (online) {

@@ -184,7 +184,7 @@ async function yes(btn) {
   steps[cur] = "ok"; store.recordAnswer(cur, "o").catch(() => {});
   const share = store.doneShare(cur);
   renderStage(); renderPips(); lightUp($("stage"), G, cur); sparkle(cur); setGlow(); sfx.ding();
-  bubble(share === null ? "반짝! 불이 켜졌어요" : `오늘 시민 ${share}%도 해봤어요`);
+  bubble(share === null ? "반짝! 불이 켜졌어요" : `시민 ${share}%도 해봤어요`);
   await wait(1000); next();
 }
 
